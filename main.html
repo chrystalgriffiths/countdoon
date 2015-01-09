@@ -1,0 +1,60 @@
+<head>
+  <title>Countdoon</title>
+  <script src="//use.typekit.net/byt4xbu.js"></script>
+  <script>try{Typekit.load();}catch(e){}</script>
+</head>
+
+<template name="ApplicationLayout">
+  <div class="container">
+    {{> yield}}
+  </div>
+</template>
+
+<template name="main">
+  <div class="new-button">
+    <h1 class="new-button__text-container"><a class ="new-button__text" href="#">New</a></h1>
+  </div>
+  <div class="task-list">
+    <div class="task-list__completed">
+      <h2 class="task-list__completed__heading">Completed Tasks</h2>
+      <ul class="task-list__completed__list">
+        {{#each completedTasks}}
+          {{> taskList}}
+        {{/each}}
+      </ul>
+    </div>
+
+    <div class="task-list__failed">
+      <h2 class="task-list__failed__heading">Failed Tasks</h2>
+      <ul class="task-list__failed__list">
+        {{#each failedTasks}}
+          {{> taskList}}
+        {{/each}}
+    </ul>
+    </div>
+  </div>
+</template>
+
+<template name="task">
+  <i class="back-button fa fa-arrow-left">
+    <a href="#"></a>
+  </i>
+  <div class="task">
+    <p class="task__title">{{taskName}}</p>
+    <p class="task__time">{{taskTime}}</p>
+  </div>
+  <div class="start-button">
+    <h1 class="start-button__text-container"><a class ="start-button__text" href="#">Start</a></h1>
+  </div>
+</template>
+
+<template name="taskList">
+  <div class="task-list__{{status}}__list__task">
+    <li class="task-list__{{status}}__list__task__action"><a href="#">{{action}}</a></li>
+    <li class="task-list__{{status}}__list__task__created-at">{{formatCreatedAt}}</li>
+    <div class="task-list__{{status}}__list__task-other-actions hidden">
+      <span class="task-list__{{status}}__list__task-other-actions__delete"><a href="#">Delete</a></span>
+      <span class="task-list__{{status}}__list__task-other-actions__do-it-again"><a href="#">Do It Again</a></span>
+    </div>
+  </div>
+</template>
