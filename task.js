@@ -2,7 +2,7 @@ Tasks = new Mongo.Collection('tasks');
 
 if (Meteor.isClient){
   Template.task.rendered = function(){
-      if(!Session.equals('currentTaskId', undefined)){
+      if(!!Session.get('currentTaskId')){
         $('.start-button').show();
       }
     }
@@ -10,14 +10,14 @@ if (Meteor.isClient){
   Template.task.helpers({
     taskName: function(){
       var name = "Name the task";
-      if(!Session.equals('currentTaskId', undefined)){
+      if(!!Session.get('currentTaskId')){
         name = this.action;
       }
        return name;
     },
     taskTime: function(){
       var time = "Set the time";
-      if(!Session.equals('currentTaskId', undefined)){
+      if(!!Session.get('currentTaskId')){
         time = this.originalDuration;
       }
        return time;
