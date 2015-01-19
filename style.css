@@ -192,7 +192,7 @@ body.bad-time{
   text-transform: uppercase;
 }
 
-.task-list__completed__list__task{
+.task-list__completed__list__task, .task-list__failed__list__task{
   display:block;
   margin-bottom:1em;
 }
