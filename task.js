@@ -26,6 +26,7 @@ if (Meteor.isClient){
 
   Template.task.events({
     'click .back-button': function(e){
+      Session.set('done', true);
       e.preventDefault();
       Router.go('/');
     },
