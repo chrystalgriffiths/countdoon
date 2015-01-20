@@ -9,11 +9,12 @@ if (Meteor.isClient){
 
   Template.task.helpers({
     taskName: function(){
+      var task = getTask();
       var name = "Name the task";
 
       Tracker.autorun(function() {
         if(!!Session.get('currentTaskId')){
-          name = this.action;
+          name = task.action;
         }
       });
 
