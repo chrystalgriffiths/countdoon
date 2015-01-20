@@ -16,3 +16,7 @@ formatCurrentDuration = function(duration){
 
   return "<span class= '" + hourClass + "'>" + durationHours + ":</span><span class= '" + minuteClass + "'>" + durationMinutes + ":</span><span class= '" + secondClass + "'>" + durationSeconds + "</span>"  
 }
+
+getTask = function(){
+  return Tasks.findOne(Session.get('currentTaskId'));
+}
