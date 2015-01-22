@@ -5,7 +5,7 @@ if (Meteor.isClient){
       if(!!Session.get('currentTaskId')){
         $('.start-button').show();
       }
-    }
+    };
 
   Template.task.helpers({
     taskName: function(){
@@ -119,11 +119,12 @@ if (Meteor.isClient){
           }          
           else{
             Meteor.clearInterval(timer);
-            if(!Session.equals('done', true))
+            if(!Session.equals('done', true)){
               setStatus('failed');
               Meteor.setTimeout(function(){
                 Router.go('/');
-              }, 1000)
+              }, 1000);
+            }
           }
         }, 1000);
         
