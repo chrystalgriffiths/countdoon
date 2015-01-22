@@ -32,6 +32,7 @@ if (Meteor.isClient){
   Template.task.events({
     'click .back-button': function(e){
       Session.set('done', true);
+      setStatus('failed');
       e.preventDefault();
       Router.go('/');
     },
@@ -66,7 +67,7 @@ if (Meteor.isClient){
 
       if ($('.start-button').hasClass('done-button')){
         Session.set('done', true);        
-        Tasks.update(Session.get('currentTaskId'), {$set:{status:'completed'}});
+        setStatus('completed');
         Router.go('/');
       }
 
@@ -119,6 +120,7 @@ if (Meteor.isClient){
           else{
             Meteor.clearInterval(timer);
             if(!Session.equals('done', true))
+              setStatus('failed');
               Meteor.setTimeout(function(){
                 Router.go('/');
               }, 1000)
