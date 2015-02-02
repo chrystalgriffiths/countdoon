@@ -20,12 +20,41 @@ if (Meteor.isClient){
 
        return name;
     },
-    taskTime: function(){
-      var time = "Set the time";
-      if(!!Session.get('currentTaskId')){
-        time = this.originalDuration;
-      }
-       return time;
+    currentHour: function(){
+       var hour = Session.get("currentHour");
+
+      if (hour < 10){
+          hour = "0" + hour;
+        }
+
+      return hour;
+    },
+    currentMinute: function(){
+       var minute = Session.get("currentMinute");
+
+      if (minute < 10){
+          minute = "0" + minute;
+        }
+
+      return minute;
+    },
+    currentSecond: function(){
+      var second = Session.get("currentSecond");
+
+      if (second < 10){
+          second = "0" + second;
+        }
+
+      return second;
+    },
+    hourClass: function(){
+      return (Session.get('currentHour') <= 0) ? "" : "active";
+    },
+    minuteClass: function(){
+      return ((Session.get('currentMinute') <= 0) && (Session.get('currentHour') <= 0)) ? "" : "active";
+    },
+    secondClass: function(){
+      return ((Session.get('currentSecond') <= 0) && (Session.get('currentMinute') <= 0)) ? "" : "active";
     }
   });
 
@@ -45,8 +74,7 @@ if (Meteor.isClient){
       time.contentEditable = true;
 
       if (time.textContent === "Set the time"){
-        time.textContent = "";
-        $(time).append(formatCurrentDuration(moment.duration("00:01:00")));
+        time.textContent = "00:01:00";
       }
 
       $('.start-button').show();
@@ -105,8 +133,9 @@ if (Meteor.isClient){
           newDurationInSeconds = newDuration.seconds();
 
           if (newDurationInSeconds !== -1 && !Session.equals('done', true)){
-            $('.task__time').empty();
-            $('.task__time').append(formatCurrentDuration(newDuration));
+            Session.set("currentHour", newDuration.hours());
+            Session.set("currentMinute", newDuration.minutes());
+            Session.set("currentSecond", newDurationInSeconds);
 
             if(newDurationInSeconds <= (originalDurationInSeconds / 2)){
               $('body').removeClass('good-time');

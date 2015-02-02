@@ -41,7 +41,15 @@
   </i>
   <div class="task">
     <p class="task__title">{{taskName}}</p>
-    <p class="task__time">{{taskTime}}</p>
+    {{#if currentTask}}
+      <p class="task__time">
+        <span class="{{hourClass}}">{{currentHour}}:</span>
+        <span class="{{minuteClass}}">{{currentMinute}}:</span>
+        <span class="{{secondClass}}">{{currentSecond}}</span>
+      </p>
+    {{else}}
+      <p class="task__time">Set the time</p>
+    {{/if}}
   </div>
   <div class="start-button">
     <h1 class="start-button__text-container"><a class ="start-button__text" href="#">Start</a></h1>
