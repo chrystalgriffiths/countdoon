@@ -8,6 +8,9 @@ if (Meteor.isClient){
     };
 
   Template.task.helpers({
+    currentTask: function(){
+      return !!Session.get('currentTaskId');
+    },
     taskName: function(){
       var task = getCurrentTask();
       var name = "Name the task";
