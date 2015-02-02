@@ -174,10 +174,19 @@ body.bad-time{
   color:#B2B7B8;
   font-size:120px;
   font-family:"alternate-gothic-no-3-d";
+  height:143px;
   text-align:center;
   letter-spacing:0.025em;
   text-transform:uppercase;
 
+}
+
+.task__time span{
+  float:left;
+}
+
+.task__time .hour{
+  padding-left:270px;
 }
 
 .task-list__completed__heading, .task-list__failed__heading{

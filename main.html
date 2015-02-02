@@ -42,11 +42,11 @@
   <div class="task">
     <p class="task__title">{{taskName}}</p>
     {{#if currentTask}}
-      <p class="task__time">
-        <span class="{{hourClass}}">{{currentHour}}:</span>
+      <div class="task__time">
+        <span class="hour {{hourClass}}">{{currentHour}}:</span>
         <span class="{{minuteClass}}">{{currentMinute}}:</span>
         <span class="{{secondClass}}">{{currentSecond}}</span>
-      </p>
+      </div>
     {{else}}
       <p class="task__time">Set the time</p>
     {{/if}}
