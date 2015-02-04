@@ -122,7 +122,7 @@ if (Meteor.isClient){
                      });
 
           originalDurationInSeconds = moment.duration(Tasks.findOne(task).originalDuration).seconds();
-          Session.set('currentTaskId', task);
+          setUpTask(task);
         }
         else{
           originalDurationInSeconds = moment.duration(Tasks.findOne(Session.get('currentTaskId')).originalDuration).seconds();

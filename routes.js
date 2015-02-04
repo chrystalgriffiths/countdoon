@@ -15,8 +15,8 @@ Router.route('/new', function () {
 Router.route('/task/:_id', function () {  
   this.render('task', {
     data: function () {
-      var currentTask = Tasks.findOne({_id: this.params._id});      
-      Session.set('currentTaskId', currentTask._id);
+      var currentTask = Tasks.findOne({_id: this.params._id});
+      setUpTask(currentTask._id);
       return currentTask;
     }
   });  
