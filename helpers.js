@@ -13,8 +13,8 @@ setStatus = function(status){
 setUpTask = function(currentTaskId){
   Session.set('currentTaskId', currentTaskId);
   var currentTask = getCurrentTask();
+  var duration = moment.duration((currentTask.originalDuration));
 
-  duration = moment.duration((currentTask.originalDuration));
   Session.set('currentHour', duration.hours());
   Session.set('currentMinute', duration.minutes());
   Session.set('currentSecond', duration.seconds());
