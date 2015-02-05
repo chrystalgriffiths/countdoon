@@ -128,7 +128,11 @@ if (Meteor.isClient){
           originalDurationInSeconds = moment.duration(Tasks.findOne(Session.get('currentTaskId')).originalDuration).seconds();
         }
 
-        currentDuration = moment.duration($('.task__time').text());
+        currentDuration = moment.duration({
+          hours: Session.get('currentHour'),
+          minutes: Session.get('currentMinute'),
+          seconds: Session.get('currentSecond')
+        });
         
         timer = Meteor.setInterval(function(){
 
