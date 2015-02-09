@@ -11,4 +11,5 @@ fortawesome:fontawesome
 
 remcoder:chronos
 momentjs:moment
-xolvio:cucumber
+sanjo:jasmine
+velocity:html-reporter
