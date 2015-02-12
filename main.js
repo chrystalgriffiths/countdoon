@@ -1,13 +1,12 @@
-if (Meteor.isClient) { 
-
-  Template.main.helpers({
-    completedTasks: function(){
-      return Tasks.find({status:'completed'});
-    },
-    failedTasks: function(){
-      return Tasks.find({status:'failed'});
-    }
-  });
+if (Meteor.isClient) {
+    Template.main.helpers({
+      completedTasks: function(){
+        return TaskService.getCompletedTasks();
+      },
+      failedTasks: function(){
+        return TaskService.getFailedTasks();
+      }
+    });
 
   Template.main.events({
     'click .new-button': function(e){
@@ -21,7 +20,7 @@ if (Meteor.isClient) {
     'click .task-list__completed__list__task-other-actions__delete, click .task-list__failed__list__task-other-actions__delete': function(e){
       if (confirm("Are you sure?")){
         e.preventDefault();
-        Tasks.remove(this._id);
+        TaskService.removeTask(this._id);
       }      
     },
     'click .task-list__completed__list__task-other-actions__do-it-again, click .task-list__failed__list__task-other-actions__do-it-again': function(e){

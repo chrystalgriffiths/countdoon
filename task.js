@@ -1,7 +1,43 @@
 Tasks = new Mongo.Collection('tasks');
 
 if (Meteor.isClient){
-  Template.task.rendered = function(){
+
+  TaskService = {
+    addTask: function(task){
+      return Tasks.insert(task);
+    },
+    getTask: function(taskId){
+      return Tasks.findOne(taskId);
+    },
+    getCompletedTasks: function(){
+      return Tasks.find({status:'completed'});
+    },
+    getFailedTasks: function(){
+      return Tasks.find({status:'failed'});
+    },
+    getOriginalDuration: function(taskId){
+      return moment.duration((TaskService.getTask(taskId).originalDuration));
+    },
+    getOriginalDurationInSeconds: function(taskId){
+      return TaskService.getOriginalDuration(taskId).as('seconds');
+    },
+    setTaskStatus: function(taskId, status){
+      Tasks.update(taskId, {$set:{status: status}});
+    },
+    removeTask: function(taskId){
+      Tasks.remove(taskId);
+    },
+    setup: function(taskId){
+      var duration = TaskService.getOriginalDuration(taskId);
+
+      Session.set('currentTaskId', taskId);
+      Session.set('currentHour', duration.hours());
+      Session.set('currentMinute', duration.minutes());
+      Session.set('currentSecond', duration.seconds());
+    }
+  };
+
+   Template.task.rendered = function(){
       if(!!Session.get('currentTaskId')){
         $('.start-button').show();
       }
@@ -11,44 +47,20 @@ if (Meteor.isClient){
     currentTask: function(){
       return !!Session.get('currentTaskId');
     },
-    taskName: function(){
-      var task = getCurrentTask();
-      var name = "Name the task";
-
-      Tracker.autorun(function() {
-        if(!!Session.get('currentTaskId')){
-          name = task.action;
-        }
-      });
-
-       return name;
+    getName: function(){
+       return this.action || "Name the task";
     },
     currentHour: function(){
        var hour = Session.get("currentHour");
-
-      if (hour < 10){
-          hour = "0" + hour;
-        }
-
-      return hour;
+       return hour < 10 ? "0" + hour : hour;
     },
     currentMinute: function(){
        var minute = Session.get("currentMinute");
-
-      if (minute < 10){
-          minute = "0" + minute;
-        }
-
-      return minute;
+       return minute < 10 ? "0" + minute : minute;
     },
     currentSecond: function(){
-      var second = Session.get("currentSecond");
-
-      if (second < 10){
-          second = "0" + second;
-        }
-
-      return second;
+       var second = Session.get("currentSecond");
+       return second < 10 ? "0" + second : second;
     },
     hourClass: function(){
       return (Session.get('currentHour') <= 0) ? "" : "active";
@@ -64,7 +76,7 @@ if (Meteor.isClient){
   Template.task.events({
     'click .back-button': function(e){
       Session.set('done', true);
-      setStatus('failed');
+      TaskService.setTaskStatus(this._id, 'failed');
       e.preventDefault();
       Router.go('/');
     },
@@ -83,27 +95,27 @@ if (Meteor.isClient){
       $('.start-button').show();
     },
     'click .start-button': function(e){
-      var button,
-          action,
+      var self = this.action ? this : TaskService.getTask(Session.get("currentTaskId")),
           currentDuration,
           originalDurationInSeconds,
-          task,
+          newTask,
+          newTaskId,
           timer,
-          time,
           newDuration,
           newDurationInSeconds;
 
       e.preventDefault();
-      button = e.target;
 
+      //Clicking the done button
       if ($('.start-button').hasClass('done-button')){
         Session.set('done', true);        
-        setStatus('completed');
+        TaskService.setTaskStatus(self._id, 'completed');
         Router.go('/');
       }
-
       else{
-        //Style changes
+        //They've clicked the start button - start the timer
+
+        //Style changes - get task ready to be done
         $('body').addClass('good-time');
         $('.start-button').addClass('done-button');
         $('.start-button__text').text("Done");
@@ -112,21 +124,17 @@ if (Meteor.isClient){
 
         if (Session.equals('currentTaskId', undefined)){
 
-          //Add the task
-          action = $('.task__title').text().trim();
-          currentDuration = $('.task__time').text();          
-          task = Tasks.insert({action:action,
-                       status:"failed",
-                       originalDuration:currentDuration,
-                       createdAt:new Date()
-                     });
+          newTask = {action:$('.task__title').text().trim(),
+                     status:"failed",
+                     originalDuration:$('.task__time').text(),
+                     createdAt:new Date()};
 
-          originalDurationInSeconds = moment.duration(Tasks.findOne(task).originalDuration).seconds();
-          setUpTask(task);
+          newTaskId = TaskService.addTask(newTask);
+          TaskService.setup(newTaskId);
+          self = TaskService.getTask(newTaskId);
         }
-        else{
-          originalDurationInSeconds = moment.duration(Tasks.findOne(Session.get('currentTaskId')).originalDuration).seconds();
-        }
+
+        originalDurationInSeconds = TaskService.getOriginalDurationInSeconds(self._id);
 
         currentDuration = moment.duration({
           hours: Session.get('currentHour'),
@@ -156,7 +164,7 @@ if (Meteor.isClient){
           else{
             Meteor.clearInterval(timer);
             if(!Session.equals('done', true)){
-              setStatus('failed');
+              TaskService.setTaskStatus(self._id, 'failed');
               Meteor.setTimeout(function(){
                 Router.go('/');
               }, 1000);
