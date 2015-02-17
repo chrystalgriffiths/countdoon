@@ -145,12 +145,12 @@ if (Meteor.isClient){
         timer = Meteor.setInterval(function(){
 
           newDuration = currentDuration.subtract(1, 's');
-          newDurationInSeconds = newDuration.seconds();
+          newDurationInSeconds = newDuration.as('seconds');
 
           if (newDurationInSeconds !== -1 && !Session.equals('done', true)){
             Session.set("currentHour", newDuration.hours());
             Session.set("currentMinute", newDuration.minutes());
-            Session.set("currentSecond", newDurationInSeconds);
+            Session.set("currentSecond", newDuration.seconds());
 
             if(newDurationInSeconds <= (originalDurationInSeconds / 2)){
               $('body').removeClass('good-time');
