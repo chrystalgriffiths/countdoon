@@ -1,4 +1,8 @@
 if (Meteor.isClient) {
+    Meteor.startup(function () {
+      document.head || (document.head = document.getElementsByTagName('head')[0]);
+    });
+
     Template.main.helpers({
       completedTasks: function(){
         return TaskService.getCompletedTasks();
