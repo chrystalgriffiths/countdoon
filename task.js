@@ -99,6 +99,7 @@ if (Meteor.isClient){
       var self = this.action ? this : TaskService.getTask(Session.get("currentTaskId")),
           currentDuration,
           originalDurationInSeconds,
+          newClass,
           newTask,
           newTaskId,
           timer,
@@ -155,7 +156,7 @@ if (Meteor.isClient){
             Session.set("currentSecond", newDuration.seconds());
 
             if(newDurationInSeconds <= (originalDurationInSeconds / 2)){
-              var newClass = 'medium-time';
+              newClass = 'medium-time';
 
               $('body').removeClass('good-time');
               $('body').addClass(newClass);
@@ -163,7 +164,7 @@ if (Meteor.isClient){
               changeFavicon(Meteor.absoluteUrl('images/' + newClass + '.gif?v=2'));
             }
             if(newDurationInSeconds <= (originalDurationInSeconds * 0.1)){
-              var newClass = 'bad-time';
+              newClass = 'bad-time';
 
               $('body').removeClass('medium-time');
               $('body').addClass(newClass);
