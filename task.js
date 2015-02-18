@@ -78,7 +78,7 @@ if (Meteor.isClient){
       Session.set('done', true);
       TaskService.setTaskStatus(this._id, 'failed');
       e.preventDefault();
-      changeFavicon('images/no-time.gif?v=2');
+      changeFavicon(Meteor.absoluteUrl('images/no-time.gif?v=2'));
       Router.go('/');
     },
     'click .task__title': function(e){
@@ -111,7 +111,7 @@ if (Meteor.isClient){
       if ($('.start-button').hasClass('done-button')){
         Session.set('done', true);        
         TaskService.setTaskStatus(self._id, 'completed');
-        changeFavicon('images/no-time.gif?v=2');
+        changeFavicon(Meteor.absoluteUrl('images/no-time.gif?v=2'));
         Router.go('/');
       }
       else{
@@ -121,6 +121,7 @@ if (Meteor.isClient){
         $('body').addClass('good-time');
         $('.start-button').addClass('done-button');
         $('.start-button__text').text("Done");
+        changeFavicon(Meteor.absoluteUrl('images/good-time.gif?v=2'));
 
         Session.set('done', false);
 
@@ -145,8 +146,6 @@ if (Meteor.isClient){
         });
         
         timer = Meteor.setInterval(function(){
-
-          changeFavicon('images/good-time.gif?v=2');
           newDuration = currentDuration.subtract(1, 's');
           newDurationInSeconds = newDuration.as('seconds');
 
@@ -161,7 +160,7 @@ if (Meteor.isClient){
               $('body').removeClass('good-time');
               $('body').addClass(newClass);
 
-              changeFavicon('images/' + newClass + '.gif?v=2');
+              changeFavicon(Meteor.absoluteUrl('images/' + newClass + '.gif?v=2'));
             }
             if(newDurationInSeconds <= (originalDurationInSeconds * 0.1)){
               var newClass = 'bad-time';
@@ -169,7 +168,7 @@ if (Meteor.isClient){
               $('body').removeClass('medium-time');
               $('body').addClass(newClass);
 
-              changeFavicon('images/' + newClass + '.gif?v=2');
+              changeFavicon(Meteor.absoluteUrl('images/' + newClass + '.gif?v=2'));
             }
           }          
           else{
@@ -177,7 +176,7 @@ if (Meteor.isClient){
             if(!Session.equals('done', true)){
               TaskService.setTaskStatus(self._id, 'failed');
               Meteor.setTimeout(function(){
-                changeFavicon('images/no-time.gif?v=2');
+                changeFavicon(Meteor.absoluteUrl('images/no-time.gif?v=2'));
                 Router.go('/');
               }, 1000);
             }
