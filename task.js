@@ -97,6 +97,7 @@ if (Meteor.isClient){
     },
     'click .start-button': function(e){
       var self = this.action ? this : TaskService.getTask(Session.get("currentTaskId")),
+          before,
           currentDuration,
           originalDurationInSeconds,
           newClass,
@@ -145,12 +146,22 @@ if (Meteor.isClient){
           minutes: Session.get('currentMinute'),
           seconds: Session.get('currentSecond')
         });
+
+        before = new Date();
         
         timer = Meteor.setInterval(function(){
-          newDuration = currentDuration.subtract(1, 's');
+          var now = new Date();
+          var elapsedTime = (now.getTime() - before.getTime());
+
+          //Recover the motion lost while tab inactive.
+          var interval = Math.floor(elapsedTime/1000);
+
+          before = new Date();
+
+          newDuration = currentDuration.subtract(interval, 's');
           newDurationInSeconds = newDuration.as('seconds');
 
-          if (newDurationInSeconds !== -1 && !Session.equals('done', true)){
+          if (newDurationInSeconds > -1 && !Session.equals('done', true)){
             Session.set("currentHour", newDuration.hours());
             Session.set("currentMinute", newDuration.minutes());
             Session.set("currentSecond", newDuration.seconds());
