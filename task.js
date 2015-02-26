@@ -69,7 +69,7 @@ if (Meteor.isClient){
       return ((Session.get('currentMinute') <= 0) && (Session.get('currentHour') <= 0)) ? "" : "active";
     },
     secondClass: function(){
-      return ((Session.get('currentSecond') <= 0) && (Session.get('currentMinute') <= 0)) ? "" : "active";
+      return ((Session.get('currentSecond') <= 0) && (Session.get('currentMinute') <= 0) && (Session.get('currentHour') <= 0)) ? "" : "active";
     }
   });
 
