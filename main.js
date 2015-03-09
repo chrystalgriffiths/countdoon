@@ -19,7 +19,8 @@ if (Meteor.isClient) {
     },
     'click .task-list__completed__list__task__action, click .task-list__failed__list__task__action': function(e){
       e.preventDefault();
-      $(e.target).parent().parent().children().toggleClass('hidden');
+      var closestActionButtons = $(e.target).parent().parent().children();
+      closestActionButtons.toggleClass('hidden');
     },
     'click .task-list__completed__list__task-other-actions__delete, click .task-list__failed__list__task-other-actions__delete': function(e){
       if (confirm("Are you sure?")){
