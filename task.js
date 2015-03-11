@@ -83,7 +83,10 @@ if (Meteor.isClient){
     },
     'click .task__title': function(e){
       var title = e.target;
-      title.contentEditable = true;
+
+      if (Session.equals('currentTaskId', undefined)){
+        title.contentEditable = true;
+      }
     },
     'click .task__time': function(e){
       var time = e.target;
