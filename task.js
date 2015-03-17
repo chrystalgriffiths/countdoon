@@ -100,13 +100,12 @@ if (Meteor.isClient){
     },
     'click .start-button': function(e){
       var self = this.action ? this : TaskService.getTask(Session.get("currentTaskId")),
-          before,
           currentDuration,
+          intervalWorker,
           originalDurationInSeconds,
           newClass,
           newTask,
           newTaskId,
-          timer,
           newDuration,
           newDurationInSeconds;
 
@@ -150,16 +149,11 @@ if (Meteor.isClient){
           seconds: Session.get('currentSecond')
         });
 
-        before = new Date();
+        intervalWorker = new Worker(Meteor.absoluteUrl('javascript/interval.js'));
         
-        timer = Meteor.setInterval(function(){
-          var now = new Date();
-          var elapsedTime = (now.getTime() - before.getTime());
+        intervalWorker.onmessage = function(event){
 
-          //Recover the motion lost while tab inactive.
-          var interval = Math.floor(elapsedTime/1000);
-
-          before = new Date();
+          var interval = event.data;
 
           newDuration = currentDuration.subtract(interval, 's');
           newDurationInSeconds = newDuration.as('seconds');
@@ -187,7 +181,7 @@ if (Meteor.isClient){
             }
           }          
           else{
-            Meteor.clearInterval(timer);
+            intervalWorker.terminate();
             if(!Session.equals('done', true)){
               TaskService.setTaskStatus(self._id, 'failed');
               Meteor.setTimeout(function(){
@@ -196,8 +190,7 @@ if (Meteor.isClient){
               }, 1000);
             }
           }
-        }, 1000);
-        
+        };
       }      
     }
   });
