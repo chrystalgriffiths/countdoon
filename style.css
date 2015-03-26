@@ -255,3 +255,15 @@ li{
 :focus{
   outline:none;
 }
+
+/*------------------------------------*\
+  $RESPONSIVE
+\*------------------------------------*/
+
+@media (max-width: 1023px)
+{
+  .container{
+    width:100%;
+    padding:5%;
+  }
+}
