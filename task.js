@@ -105,6 +105,13 @@ if (Meteor.isClient){
 
       $('.start-button').show();
     },
+    'keydown .task__time': function(e){
+      var keyCode = e.keyCode;
+      if(keyCode === 13){
+        e.preventDefault();
+        $('.start-button').click();
+      }
+    },
     'click .start-button': function(e){
       var self = this.action ? this : TaskService.getTask(Session.get("currentTaskId")),
           currentDuration,
