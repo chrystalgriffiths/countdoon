@@ -88,6 +88,13 @@ if (Meteor.isClient){
         title.contentEditable = true;
       }
     },
+    'keydown .task__title': function(e){
+      var keyCode = e.keyCode;
+      if(keyCode === 13 || keyCode === 9){
+        e.preventDefault();
+        $('.task__time').click().focus();
+      }
+    },
     'click .task__time': function(e){
       var time = e.target;
       time.contentEditable = true;
