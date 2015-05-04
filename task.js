@@ -100,7 +100,7 @@ if (Meteor.isClient){
       time.contentEditable = true;
 
       if (time.textContent === "Set the time"){
-        time.textContent = "00:01:00";
+        $('.task__time').empty().append("<span id='lh'>0</span><span id='rh'>0:</span><span id='lm'>0</span><span id='rm'>1:</span><span id='ls'>0</span><span id='rs'>0</span>");
       }
 
       $('.start-button').show();
