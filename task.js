@@ -100,10 +100,22 @@ if (Meteor.isClient){
       time.contentEditable = true;
 
       if (time.textContent === "Set the time"){
-        $('.task__time').empty().append("<span id='lh'>0</span><span id='rh'>0:</span><span id='lm'>0</span><span id='rm'>1:</span><span id='ls'>0</span><span id='rs'>0</span>");
+        $('.task__time').empty().append("<span class ='timespan' id='lh'>0</span> \
+                                          <span class='timespan' id='rh'>0</span> \
+                                          <span>:</span> \
+                                          <span class='timespan' id='lm'>0</span> \
+                                          <span class='timespan' id='rm'>1</span> \
+                                          <span>:</span> \
+                                          <span class='timespan' id='ls'>0</span> \
+                                          <span class='timespan' id='rs'>0</span>");
       }
 
       $('.start-button').show();
+    },
+    'click .task__time .timespan': function(e){
+      var timespan = e.target;
+      $(timespan).siblings().removeClass('active');
+      $(timespan).addClass('active');
     },
     'keydown .task__time': function(e){
       var keyCode = e.keyCode;
@@ -147,7 +159,7 @@ if (Meteor.isClient){
 
           newTask = {action:$('.task__title').text().trim(),
                      status:"failed",
-                     originalDuration:$('.task__time').text(),
+                     originalDuration:$('.task__time').text().replace(/ /g,''),
                      createdAt:new Date()};
 
           newTaskId = TaskService.addTask(newTask);
