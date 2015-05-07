@@ -118,10 +118,21 @@ if (Meteor.isClient){
       $(timespan).addClass('active');
     },
     'keydown .task__time': function(e){
+      var self = e.target;
       var keyCode = e.keyCode;
+      var character = "";
+
+      e.preventDefault();
       if(keyCode === 13){
-        e.preventDefault();
         $('.start-button').click();
+      }
+      else if (keyCode === 9){
+        //TODO tab bits
+        // $(self).find('span.active')
+
+      }
+      else if (!isNaN(character = String.fromCharCode(keyCode))){
+        $(self).find('span.active').text(character);
       }
     },
     'click .start-button': function(e){
