@@ -181,6 +181,10 @@ body.bad-time{
 
 }
 
+.task__time.new-time{
+  margin-left:30%;
+}
+
 .task__time span{
   float:left;
 }

@@ -108,6 +108,7 @@ if (Meteor.isClient){
                                           <span>:</span> \
                                           <span class='timespan' id='ls'>0</span> \
                                           <span class='timespan' id='rs'>0</span>");
+        $('.task__time').addClass('new-time')
       }
 
       $('.start-button').show();
@@ -150,6 +151,7 @@ if (Meteor.isClient){
           newDurationInSeconds;
 
       e.preventDefault();
+      $('.task__time').removeClass('new-time')
 
       //Clicking the done button
       if ($('.start-button').hasClass('done-button')){
