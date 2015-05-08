@@ -104,7 +104,7 @@ if (Meteor.isClient){
                                           <span class='timespan' id='rh'>0</span> \
                                           <span>:</span> \
                                           <span class='timespan' id='lm'>0</span> \
-                                          <span class='timespan' id='rm'>1</span> \
+                                          <span class='timespan active' id='rm'>1</span> \
                                           <span>:</span> \
                                           <span class='timespan' id='ls'>0</span> \
                                           <span class='timespan' id='rs'>0</span>");
@@ -126,10 +126,13 @@ if (Meteor.isClient){
       if(keyCode === 13){
         $('.start-button').click();
       }
-      else if (keyCode === 9){
-        //TODO tab bits
-        // $(self).find('span.active')
-
+      else if (keyCode === 9 || (keyCode == 37 || keyCode == 39)){
+        if (e.shiftKey || keyCode == 37){
+          $(self).find('span.active').prevAll('.timespan').first().click();
+        }
+        else{
+          $(self).find('span.active').nextAll('.timespan').first().click();
+        }
       }
       else if (!isNaN(character = String.fromCharCode(keyCode))){
         $(self).find('span.active').text(character);
