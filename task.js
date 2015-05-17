@@ -119,20 +119,43 @@ if (Meteor.isClient){
       $(timespan).addClass('active');
     },
     'keydown .task__time': function(e){
-      var self = e.target;
-      var keyCode = e.keyCode;
-      var character = "";
+      var self = e.target,
+          keyCode = e.keyCode,
+          character = "",
+          currentNumber;
 
       e.preventDefault();
+      //Enter
       if(keyCode === 13){
         $('.start-button').click();
       }
-      else if (keyCode === 9 || (keyCode == 37 || keyCode == 39)){
+      //Tab/Shift Tab or Left/Right
+      else if (keyCode === 9 || (keyCode === 37 || keyCode === 39)){
         if (e.shiftKey || keyCode == 37){
           $(self).find('span.active').prevAll('.timespan').first().click();
         }
         else{
           $(self).find('span.active').nextAll('.timespan').first().click();
+        }
+      }
+      //Up/Down Arrows (for numbers)
+      else if (keyCode === 38 || keyCode === 40){
+        currentNumber = $(self).find('span.active').text();
+        if(keyCode === 38){
+          if(currentNumber < 9){
+            $(self).find('span.active').text(++currentNumber);
+          }
+          else{
+            $(self).find('span.active').text(0);
+          }
+        }
+        else{
+          if(currentNumber > 0){
+            $(self).find('span.active').text(--currentNumber);
+          }
+          else{
+            $(self).find('span.active').text(9);
+          }
         }
       }
       else if (!isNaN(character = String.fromCharCode(keyCode))){
