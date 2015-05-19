@@ -9,6 +9,7 @@ insecure
 iron:router
 fortawesome:fontawesome
 
-remcoder:chronos
 momentjs:moment
 xolvio:cucumber
+fourseven:scss
+francocatena:compass
