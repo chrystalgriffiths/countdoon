@@ -6,17 +6,9 @@
   display:none;
 }
 
-a{
-  color:inherit;
-  text-decoration: none;
-}
-
 /*------------------------------------*\
   $LAYOUT
 \*------------------------------------*/
-body{
-  background-color:#343C41;
-}
 
 body.good-time{
   background-color:#C0D951;
@@ -115,7 +107,6 @@ body.bad-time{
 
 
 .new-button__text, .start-button__text, .task__title{
-  font-family: "jaf-bernino-sans-condensed";  
   font-weight: 400;
   text-align:center;
   text-transform:uppercase;
@@ -141,7 +132,6 @@ body.bad-time{
 .task__time{
   color:#B2B7B8;
   font-size:120px;
-  font-family:"alternate-gothic-no-3-d";
   height:143px;
   text-align:center;
   letter-spacing:0.025em;
@@ -163,12 +153,10 @@ body.bad-time{
 
 .task-list__completed__heading, .task-list__failed__heading{
   font-size:40px;
-  font-family: "jaf-bernino-sans-condensed";
   text-transform: uppercase;
 }
 
 .task-list__completed__list, .task-list__failed__list{
-  font-family: "alternate-gothic-no-3-d";
   font-size:24px;
   text-transform: uppercase;
 }
@@ -212,13 +200,8 @@ body.bad-time{
 .task-list__failed__list__task-other-actions__do-it-again{
   background-color: #B8CE77;
 }
-/*------------------------------------*\
-  $LISTS
-\*------------------------------------*/
 
-li{
-  list-style-type: none;
-}
+
 
 /*------------------------------------*\
   $EDITABLE
