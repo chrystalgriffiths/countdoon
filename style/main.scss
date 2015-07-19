@@ -1,6 +1,59 @@
-/*
- Global
-*/
 @import "global.import";
 @import "base.import";
-@import "layout.import";
+@import "modules.import";
+@import "layouts/layout.import";
+
+.new-button{
+  width:150px;
+  height:150px;
+}
+
+.new-button__text-container{
+  padding-top:26%;
+}
+
+.new-button__text-container{
+  text-align:center;
+}
+
+.task-list__list{
+  padding-top:1em;
+}
+
+.task-list__container{
+  margin-top:2em;
+}
+
+.task-list__list__task{
+  display:block;
+  margin-bottom:1em;
+}
+
+.task-list__list__task__action{
+  display:inline;
+}
+
+.task-list__list__task__created-at{
+  color:#E3E7F1;
+  float:right;
+  display:inline;
+}
+
+.task-list__list__task-other-actions{
+  margin-top:1em;
+}
+
+.task-list__list__task-other-actions__button{
+  padding: 0.3em 0.8em;
+  margin-right:0.5em;
+  font-size:0.8em;
+  border-radius: 5px;
+}
+
+.task-list__list__task-other-actions__delete{
+  background-color: #D73F3A;
+}
+
+.task-list__list__task-other-actions__do-it-again{
+  background-color: #B8CE77;
+}

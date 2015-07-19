@@ -1,6 +1,55 @@
-/*
- Global
-*/
 @import "global.import";
 @import "base.import";
-@import "layout.import";
+@import "modules.import";
+@import "layouts/layout.import";
+@import "layouts/task/layout.import";
+
+.start-button{
+  width:180px;
+  height:180px;
+  display:none;
+}
+
+.done-button{
+  background-color: black;
+}
+
+.start-button__text-container{
+  padding-top:29%;
+}
+
+.start-button__text-container{
+  text-align: center;
+}
+
+.new-button__text, .start-button__text{
+  font-size: 56px;
+}
+
+.task__title{
+  font-size:48px;
+}
+
+.task__time{
+  color:#B2B7B8;
+  font-size:120px;
+  height:143px;
+  text-align:center;
+  letter-spacing:0.025em;
+
+  span{
+    float:left;
+  }
+}
+
+.good-time .task__time{
+  color:#B8CE77;
+}
+
+.task__time.new-time{
+  margin-left:30%;
+}
+
+.task__time .hour{
+  padding-left:270px;
+}

@@ -11,22 +11,22 @@
 </template>
 
 <template name="main">
-  <div class="new-button">
+  <div class="action-button new-button">
     <h1 class="new-button__text-container"><a class ="new-button__text" href="#">New</a></h1>
   </div>
   <div class="task-list">
-    <div class="task-list__completed">
+    <div class="task-list__container">
       <h2 class="task-list__completed__heading">Completed Tasks</h2>
-      <ul class="task-list__completed__list">
+      <ul class="task-list__list">
         {{#each completedTasks}}
           {{> taskList}}
         {{/each}}
       </ul>
     </div>
 
-    <div class="task-list__failed">
+    <div class="task-list__container">
       <h2 class="task-list__failed__heading">Failed Tasks</h2>
-      <ul class="task-list__failed__list">
+      <ul class="task-list__list">
         {{#each failedTasks}}
           {{> taskList}}
         {{/each}}
@@ -39,8 +39,8 @@
   <i class="back-button fa fa-arrow-left">
     <a href="#"></a>
   </i>
-  <div class="task">
-    <h2 class="task__title">{{getName}}</h2>
+  <div id="task">
+    <h1 class="task__title">{{getName}}</h1>
     {{#if currentTask}}
       <div class="task__time">
         <span class="hour {{hourClass}}">{{currentHour}}:</span>
@@ -51,18 +51,18 @@
       <p class="task__time">Set the time</p>
     {{/if}}
   </div>
-  <div class="start-button">
+  <div class="action-button start-button">
     <h1 class="start-button__text-container"><a class ="start-button__text" href="#">Start</a></h1>
   </div>
 </template>
 
 <template name="taskList">
-  <div class="task-list__{{status}}__list__task">
-    <li class="task-list__{{status}}__list__task__action"><a href="#">{{action}}</a></li>
-    <li class="task-list__{{status}}__list__task__created-at">{{formatCreatedAt}}</li>
-    <div class="task-list__{{status}}__list__task-other-actions hidden">
-      <span class="task-list__{{status}}__list__task-other-actions__delete"><a href="#">Delete</a></span>
-      <span class="task-list__{{status}}__list__task-other-actions__do-it-again"><a href="#">Do It Again</a></span>
+  <div class="task-list__list__task">
+    <li class="task-list__list__task__action"><a href="#">{{action}}</a></li>
+    <li class="task-list__list__task__created-at">{{formatCreatedAt}}</li>
+    <div class="task-list__list__task-other-actions hidden">
+      <span class="task-list__list__task-other-actions__button task-list__list__task-other-actions__delete"><a href="#">Delete</a></span>
+      <span class="task-list__list__task-other-actions__button task-list__list__task-other-actions__do-it-again"><a href="#">Do It Again</a></span>
     </div>
   </div>
 </template>
