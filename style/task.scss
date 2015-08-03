@@ -10,7 +10,7 @@
   display:none;
 }
 
-.done-button{
+.action-button.done-button{
   background-color: black;
 }
 
@@ -52,4 +52,8 @@
 
 .task__time .hour{
   padding-left:270px;
+}
+
+.task__time .active{
+  color:white;
 }

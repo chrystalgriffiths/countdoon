@@ -17,18 +17,18 @@ if (Meteor.isClient) {
       e.preventDefault();
       Router.go('/new');
     },
-    'click .task-list__completed__list__task__action, click .task-list__failed__list__task__action': function(e){
+    'click .task-list__list__task__action': function(e){
       e.preventDefault();
       var closestActionButtons = $(e.target).parent().parent().children();
       closestActionButtons.toggleClass('hidden');
     },
-    'click .task-list__completed__list__task-other-actions__delete, click .task-list__failed__list__task-other-actions__delete': function(e){
+    'click .task-list__list__task-other-actions__delete': function(e){
       if (confirm("Are you sure?")){
         e.preventDefault();
         TaskService.removeTask(this._id);
       }      
     },
-    'click .task-list__completed__list__task-other-actions__do-it-again, click .task-list__failed__list__task-other-actions__do-it-again': function(e){
+    'click .task-list__list__task-other-actions__do-it-again': function(e){
       e.preventDefault();
       Router.go('task.show', {_id: this._id});    
     }
