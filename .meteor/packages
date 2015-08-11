@@ -10,6 +10,5 @@ iron:router
 fortawesome:fontawesome
 
 momentjs:moment
-xolvio:cucumber
 fourseven:scss
 francocatena:compass
